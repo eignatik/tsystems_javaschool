@@ -10,8 +10,9 @@ The exam includes 3 tasks to be done: [Calculator](/tasks/Calculator.md), [Subse
 
 ### Result ###
 
-* Author name : {Evgeny Ignatik}
-* Codeship : 
+* Author name : Evgeny Ignatik
+
+CI Statuses: 
 MASTER BRANCH [ ![Codeship Status for eignatik/tsystems_javaschool](https://app.codeship.com/projects/19f4f670-08f3-0135-9253-667fc8f27e7e/status?branch=master)](https://app.codeship.com/projects/214511)
 
 DEVELOP BRANCH [ ![Codeship Status for eignatik/tsystems_javaschool](https://app.codeship.com/projects/19f4f670-08f3-0135-9253-667fc8f27e7e/status?branch=develop)](https://app.codeship.com/projects/214511)
