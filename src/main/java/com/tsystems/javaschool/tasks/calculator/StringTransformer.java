@@ -6,92 +6,75 @@ import java.util.Stack;
  * Class provides methods to transform string expressions in postfix form
  */
 class StringTransformer {
-    private Stack<String> statementStack = new Stack<>();
-    private Stack<Operator> charStack = new Stack<>();
+    private Stack<Operator> operators = new Stack<>();
+    private StringBuilder postfixExpression = new StringBuilder();
     private static String charactersPattern = "\\+|\\*|\\-|\\/";
-    private static String digitPattern = "\\d+\\.\\d+|\\d+";
+    private static String digitPattern = "\\d+\\.\\d+|\\d+\\;";
 
-    void parseString(String statementToParse) {
-        makePostfixStacks(statementToParse);
-        calculate();
-    }
-
-    private void makePostfixStacks(String statementToParse) {
-        String exp = "";
+    String getPostfixStacks(String statementToParse) {
         for (int i = 0; i < statementToParse.length(); i++) {
             char symbol = statementToParse.charAt(i);
             switch (symbol) {
                 case '+':
                 case '-':
-                    statementStack.push(exp);
-                    exp = "";
-                    charStack.push(new Operator(symbol, 2));
+                    postfixExpression.append(";");
+                    this.setOperator(new Operator(symbol, 1));
                     break;
                 case '*':
                 case '/':
-                    statementStack.push(exp);
-                    exp = "";
-                    charStack.push(new Operator(symbol, 1));
+                    postfixExpression.append(";");
+                    this.setOperator(new Operator(symbol, 2));
                     break;
                 case '(':
+                    operators.push(new Operator(symbol));
+                    break;
                 case ')':
+                    postfixExpression.append(";");
+                    this.setBraket();
                     break;
                 default:
-                    exp += symbol;
-                    if (i == statementToParse.length() - 1) {
-                        statementStack.push(exp);
-                    }
+                    postfixExpression.append(symbol);
+            }
+        }
+        postfixExpression.append(";");
+        appendLeftOperators();
+        return postfixExpression.toString();
+    }
+
+    private void setOperator(Operator operator) {
+        while (!operators.isEmpty()) {
+            Operator prev = operators.pop();
+            int currentPriority = operator.getPriority();
+            int prevPriority = prev.getPriority();
+            if (prev.getOperator() != '(') {
+                if (currentPriority > prevPriority) {
+                    operators.push(prev);
                     break;
-            }
-        }
-    }
-
-    private void calculate() {
-        while (statementStack.size() > 1) {
-            double result = 0;
-            double firstOperand = Double.parseDouble(statementStack.pop());
-            double secondOperand = Double.parseDouble(statementStack.pop());
-            Operator operator = charStack.pop();
-            Operator currentOperator = swapOperatorsAndGetCurrent(operator);
-            calculateExpression(currentOperator, firstOperand, secondOperand);
-            statementStack.push("" + result);
-        }
-    }
-
-    private Operator swapOperatorsAndGetCurrent(Operator operator) {
-        Operator currentOperator;
-        if (charStack.size() >= 1) {
-            Operator nextOperator = charStack.pop();
-            if (nextOperator.getPriority() < operator.getPriority()) {
-                charStack.push(operator);
-                currentOperator = nextOperator;
+                } else {
+                    postfixExpression.append(prev.getOperator());
+                }
             } else {
-                charStack.push(nextOperator);
-                currentOperator = operator;
+                break;
             }
-        } else {
-            currentOperator = operator;
         }
-        return currentOperator;
+        operators.push(operator);
     }
 
-    private double calculateExpression(Operator operator, double firstOperand, double secondOperand) {
-        double result = 0;
-        switch (operator.getOperator()) {
-            case '+':
-                result = firstOperand + secondOperand;
+    private void setBraket() {
+        while(!operators.isEmpty()) {
+            Operator op = operators.pop();
+            if (op.getOperator() != '(') {
+                postfixExpression.append(op.getOperator());
+            }
+            else {
                 break;
-            case '-':
-                result = firstOperand - secondOperand;
-                break;
-            case '*':
-                result = firstOperand * secondOperand;
-                break;
-            case '/':
-                result = firstOperand / secondOperand;
-                break;
-            default: break;
+            }
         }
-        return result;
+    }
+
+    private void appendLeftOperators() {
+        while (!operators.isEmpty()) {
+            postfixExpression.append(operators.pop().getOperator());
+        }
     }
 }
