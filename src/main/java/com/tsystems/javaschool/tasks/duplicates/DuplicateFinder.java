@@ -17,6 +17,4 @@ public class DuplicateFinder {
         // TODO: Implement the logic here
         return false;
     }
-
-
 }
