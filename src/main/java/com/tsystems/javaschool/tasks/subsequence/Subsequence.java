@@ -27,10 +27,10 @@ public class Subsequence {
     private boolean isSubsequenceExist(List x, List y) {
         int limit = 0;
         int counter = 0;
-        for (int i = 0; i < x.size(); i++) {
-            for (int j = limit; j < y.size(); j++) {
-                if (y.get(j).equals(x.get(i))) {
-                    limit = j;
+        for (Object aX : x) {
+            for (int i = limit; i < y.size(); i++) {
+                if (y.get(i).equals(aX)) {
+                    limit = i;
                     counter++;
                     break;
                 }
