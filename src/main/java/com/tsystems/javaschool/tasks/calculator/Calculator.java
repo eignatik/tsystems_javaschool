@@ -2,6 +2,8 @@ package com.tsystems.javaschool.tasks.calculator;
 
 public class Calculator {
 
+    private StringTransformer transformer;
+
     /**
      * Evaluate statement represented as string.
      *
@@ -11,7 +13,8 @@ public class Calculator {
      * @return string value containing result of evaluation or null if statement is invalid
      */
     public String evaluate(String statement) {
-
+        transformer = new StringTransformer();
+        transformer.parseString(statement);
         return "";
     }
 
