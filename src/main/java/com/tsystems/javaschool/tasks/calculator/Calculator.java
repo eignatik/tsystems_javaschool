@@ -29,7 +29,16 @@ public class Calculator {
     }
 
     private boolean hasIncorrectCharacters(String statement) {
+        int parenthesisCounter = 0;
+        for (int i = 0; i < statement.length(); i++) {
+            if (statement.charAt(i) == '(') {
+                parenthesisCounter++;
+            } else if (statement.charAt(i) == ')') {
+                parenthesisCounter--;
+            }
+        }
         return statement.isEmpty()
+                || parenthesisCounter != 0
                 || statement.matches(".+\\,.+")
                 || statement.matches(".+\\s.+")
                 || statement.matches(".+\\+{2,}.+")
@@ -40,7 +49,7 @@ public class Calculator {
                 || statement.matches(".+\\){2,}.+");
     }
 
-    private String calculate(String expression) {
+    private String calculate(String expression) throws Exception {
         double result;
         String number = "";
         for (int i = 0; i < expression.length(); i++) {
@@ -66,7 +75,11 @@ public class Calculator {
                         result = firstOperand * secondOperand;
                         break;
                     case '/':
-                        result = firstOperand / secondOperand;
+                        if (secondOperand != 0) {
+                            result = firstOperand / secondOperand;
+                        } else {
+                            throw new Exception("Division by zero!");
+                        }
                         break;
                     default:
                         result = 0;

@@ -30,7 +30,7 @@ class StringTransformer {
                     break;
                 case ')':
                     postfixExpression.append(";");
-                    this.setBraket();
+                    this.setBracket();
                     break;
                 default:
                     postfixExpression.append(symbol);
@@ -54,13 +54,14 @@ class StringTransformer {
                     postfixExpression.append(prev.getOperator());
                 }
             } else {
+                operators.push(prev);
                 break;
             }
         }
         operators.push(operator);
     }
 
-    private void setBraket() {
+    private void setBracket() {
         while(!operators.isEmpty()) {
             Operator op = operators.pop();
             if (op.getOperator() != '(') {
