@@ -13,6 +13,6 @@ The exam includes 3 tasks to be done: [Calculator](/tasks/Calculator.md), [Subse
 * Author name : Evgeny Ignatik
 
 CI Statuses: 
-MASTER BRANCH [ ![Codeship Status for eignatik/tsystems_javaschool](https://app.codeship.com/projects/19f4f670-08f3-0135-9253-667fc8f27e7e/status?branch=master)](https://app.codeship.com/projects/214511)
+MASTER BRANCH [ ![Codeship Status for eignatik/tsystems_javaschool](https://app.codeship.com/projects/1bdda440-0a58-0135-8b3c-6ed4d7e33e57/status?branch=master)](https://app.codeship.com/projects/214740)
 
-DEVELOP BRANCH [ ![Codeship Status for eignatik/tsystems_javaschool](https://app.codeship.com/projects/19f4f670-08f3-0135-9253-667fc8f27e7e/status?branch=develop)](https://app.codeship.com/projects/214511)
+DEVELOP BRANCH [ ![Codeship Status for eignatik/tsystems_javaschool](https://app.codeship.com/projects/1bdda440-0a58-0135-8b3c-6ed4d7e33e57/status?branch=develop)](https://app.codeship.com/projects/214740)
