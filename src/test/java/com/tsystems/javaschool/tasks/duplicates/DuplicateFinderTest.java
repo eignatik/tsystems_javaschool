@@ -47,6 +47,29 @@ public class DuplicateFinderTest {
         //assert : exception
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testSameFileNames() {
+        //run
+        DuplicateFinder duplicateFinder = setDuplicateFinderWithFiles();
+        duplicateFinder.process(new File("a.txt"), new File("a.txt"));
+
+        //assert : exception
+    }
+
+    @Test
+    public void test2() {
+        DuplicateFinder duplicateFinder = setDuplicateFinderWithFiles();
+        boolean result = duplicateFinder.process(new File("a.txt"), new File("target.txt"));
+        assertFalse(result);
+    }
+
+    @Test
+    public void test3() {
+        DuplicateFinder duplicateFinder = setDuplicateFinderWithFiles();
+        boolean result = duplicateFinder.process(new File("source.txt"), new File("target.txt"));
+        assertTrue(result);
+    }
+
     private DuplicateFinder setDuplicateFinderWithFiles() {
         DuplicateFinder duplicateFinder = new DuplicateFinder();
         duplicateFinder.setDataGetter(new FileSystemDataGetter());

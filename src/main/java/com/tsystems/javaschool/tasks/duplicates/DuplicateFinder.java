@@ -32,7 +32,7 @@ public class DuplicateFinder {
 
     private void setStrategy(File sourceFile, File targetFile) {
         if (dataGetter instanceof FileSystemDataGetter) {
-            if (sourceFile == null || targetFile == null) {
+            if (sourceFile == null || targetFile == null || sourceFile.getName().equals(targetFile.getName())) {
                 throw new IllegalArgumentException();
             }
             ((FileSystemDataGetter) dataGetter).setSource(sourceFile);
