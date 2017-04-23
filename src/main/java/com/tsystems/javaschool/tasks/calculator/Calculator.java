@@ -18,7 +18,9 @@ public class Calculator {
     public String evaluate(String statement) {
         String result;
         try {
-            result = !hasIncorrectCharacters(statement)? calculate(new StringTransformer().getPostfixStacks(statement)) : null;
+            result = !hasIncorrectCharacters(statement) ?
+                    calculate(new StringTransformer().getPostfixStacks(statement))
+                    : null;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             result = null;
@@ -46,7 +48,9 @@ public class Calculator {
             if (Character.isDigit(ch) || ch == '.') {
                 number += ch;
             } else if (ch == ';'){
-                operands.push(Double.valueOf(number));
+                if (!number.isEmpty()) {
+                    operands.push(Double.valueOf(number));
+                }
                 number = "";
             } else {
                 double secondOperand = operands.pop();
