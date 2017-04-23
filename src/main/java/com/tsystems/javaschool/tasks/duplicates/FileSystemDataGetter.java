@@ -6,14 +6,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class FileSystemDataGetter implements IDataGetter {
     private File source;
+    private File target;
     private List<String> sourceText;
-
-    FileSystemDataGetter(File source) {
-     this.source = source;
-    }
 
     @Override
     public List<String> getData() {
@@ -26,6 +24,11 @@ public class FileSystemDataGetter implements IDataGetter {
         return sourceText;
     }
 
+    @Override
+    public boolean writeData(Map<String, Integer> dataMap) {
+        return false;
+    }
+
     private void addToList(String line) {
         sourceText.add(line);
     }
@@ -36,5 +39,13 @@ public class FileSystemDataGetter implements IDataGetter {
 
     public void setSource(File source) {
         this.source = source;
+    }
+
+    public File getTarget() {
+        return target;
+    }
+
+    public void setTarget(File target) {
+        this.target = target;
     }
 }
