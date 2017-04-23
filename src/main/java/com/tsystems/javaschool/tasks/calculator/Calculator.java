@@ -16,10 +16,9 @@ public class Calculator {
      * @return string value containing result of evaluation or null if statement is invalid
      */
     public String evaluate(String statement) {
-        statement = statement.replaceAll("\\s", "");
         String result;
         try {
-            result = !isStatementCorrect(statement)? calculate(new StringTransformer().getPostfixStacks(statement)) : null;
+            result = !hasIncorrectCharacters(statement)? calculate(new StringTransformer().getPostfixStacks(statement)) : null;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             result = null;
@@ -27,8 +26,16 @@ public class Calculator {
         return result;
     }
 
-    private boolean isStatementCorrect(String statement) {
-        return statement.matches(statementPattern);
+    private boolean hasIncorrectCharacters(String statement) {
+        return statement.isEmpty()
+                || statement.matches(".+\\,.+")
+                || statement.matches(".+\\s.+")
+                || statement.matches(".+\\+{2,}.+")
+                || statement.matches(".+\\*{2,}.+")
+                || statement.matches(".+\\/{2,}.+")
+                || statement.matches(".+\\-{2,}.+")
+                || statement.matches(".+\\({2,}.+")
+                || statement.matches(".+\\){2,}.+");
     }
 
     private String calculate(String expression) {
@@ -64,6 +71,6 @@ public class Calculator {
             }
         }
         result = operands.pop();
-        return Double.toString(result);
+        return (result * 100 % 100 == 0)? Integer.toString((int) result) : Double.toString(result);
     }
 }
