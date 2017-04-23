@@ -1,8 +1,19 @@
 package com.tsystems.javaschool.tasks.duplicates;
 
 import java.io.File;
+import java.util.Map;
 
 public class DuplicateFinder {
+
+    private IDataGetter dataGetter;
+
+    public IDataGetter getDataGetter() {
+        return dataGetter;
+    }
+
+    public void setDataGetter(IDataGetter dataGetter) {
+        this.dataGetter = dataGetter;
+    }
 
     /**
      * Processes the specified file and puts into another sorted and unique
@@ -14,9 +25,18 @@ public class DuplicateFinder {
      * <code>true</code>
      */
     public boolean process(File sourceFile, File targetFile) {
-        // TODO: Implement the logic here
-        return false;
+        setStrategy(sourceFile, targetFile);
+        Map<String, Integer> sortedData = dataGetter.getSortedAndCountedMap(dataGetter.getData());
+        return dataGetter.writeData(sortedData);
     }
 
-
+    private void setStrategy(File sourceFile, File targetFile) {
+        if (dataGetter instanceof FileSystemDataGetter) {
+            if (sourceFile == null || targetFile == null || sourceFile.getName().equals(targetFile.getName())) {
+                throw new IllegalArgumentException();
+            }
+            ((FileSystemDataGetter) dataGetter).setSource(sourceFile);
+            ((FileSystemDataGetter) dataGetter).setTarget(targetFile);
+        }
+    }
 }

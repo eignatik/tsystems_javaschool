@@ -9,6 +9,10 @@ public class Operator {
         this.priority = priority;
     }
 
+    Operator(char operator) {
+        this.operator = operator;
+    }
+
     public char getOperator() {
         return operator;
     }
